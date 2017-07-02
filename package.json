@@ -1,0 +1,20 @@
+{
+  "name": "personalfinances",
+  "version": "1.0.0",
+  "description": "app for personal finances",
+  "main": "index.js",
+  "dependencies": {
+    "angular": "^1.6.4",
+    "angular-route": "^1.6.4",
+    "express": "^4.15.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "author": "Kaio Silveira",
+  "license": "ISC"
+}

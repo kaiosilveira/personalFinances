@@ -1,0 +1,74 @@
+<div>
+  <div class="row">
+      <ul class="tabs">
+        <li class="tab col s6 active">
+          <a href="#list">Registros</a>
+        </li>
+        <li class="tab col s6 disabled">
+          <a href="#statistics">Estatísticas (Em Breve)</a>
+        </li>
+      </ul>
+  </div>
+
+  <div class="row slide-animation" id="list">
+    <div class="row">
+      <div class="col s12">
+        <div class="switch">
+          <label>
+            Apenas não pagos
+            <input type="checkbox" ng-model="showPendingOnly" ng-change="filterRegistryList()">
+            <span class="lever"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="col s12 m12 l12 center">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Título</th>
+            <th>Valor</th>
+            <th>Vencimento</th>
+            <th>Categoria</th>
+            <!--th class="hide-on-small-only">Descrição</th-->
+            <th class="hide-on-small-only">Gasto Fixo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            ng-repeat="registry in filteredRegistries"
+            ng-click="showDetails(registry)"
+            ng-class="isExpired(registry) ? 'red-text' : ''">
+            <td ng-click="$event.stopPropagation();setPaid(registry)">
+              <input type="checkbox" ng-model="registry.paid">
+              <label>{{registry.paid ? 'Pago' : 'Pendente'}}</label>
+            </td>
+            <td>{{registry.title}}</td>
+            <td>{{registry.amount | currency:"R$"}}</td>
+            <td>{{registry.expirationDate | date}}</td>
+            <td>{{registry.category}}</td>
+            <!-- td class="hide-on-small-only">{{registry.description}}</td-->
+            <td class="hide-on-small-only">{{registry.recurrent ? 'Sim' : 'Não'}}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="7" style="font-weight:bold;">
+              <div class="right">
+                <span price>Total: {{getTotal() | currencybr}}</span> |
+                <span class="green-text">Pago: {{getTotalPaid()}}</span> |
+                <span class="orange-text">Restante: {{getTotalPending()}}</span>
+              </div>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <div class="row slide-animation" id="statistics">
+
+  </div>
+</div>

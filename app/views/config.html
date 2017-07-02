@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="row">
+      <div class="col offset-s3 s6">
+        <div class="col s12">
+          <div class="row">
+            <div class="col s12">
+              <h4>Rendimentos fixos</h4>
+              <div class="input-field col s12">
+                <input type="number" id="rentability" ng-model="config.incomes.fixed">
+                <label for="rentability" class="active">Valor</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col s12">
+          <form class="row">
+            <div class="col s12">
+              <h4>Período</h4>
+              <div class="input-field col s6">
+                <input type="number" id="from" ng-model="config.period.from">
+                <label for="from" class="active">De</label>
+              </div>
+              <div class="input-field col s6">
+                <input type="number" id="to" ng-model="config.period.to">
+                <label for="to" class="active">Até<label>
+              </div>
+            </div>
+            <div class="col s12">
+              <a href="#" class="waves-effect waves-light btn btn-floating right" ng-click="save()">
+                <i class="material-icons">save</i>
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>

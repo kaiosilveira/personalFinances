@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app="personal-finances">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Finanças Pessoais</title>
+
+    <!-- Materialize -->
+    <link rel="stylesheet" href="./css/materialize/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  </head>
+  <body>
+    <div class="container" ng-controller="homeController as homeCtrl">
+      <div class="row center">
+        <h1>Finanças pessoais</h1>
+        <p>Período atual: de {{homeCtrl.getPeriodStartDate()}} até {{homeCtrl.getPeriodEndDate()}}</p>
+      </div>
+      <div class="row">
+        <div class="col s12 center">
+          <a href="#" class="waves-effect waves-light btn btn-floating yellow" ng-click="action = 'list'"><i class="material-icons">home</i></a>
+          <a href="#!/add" class="waves-effect waves-light btn btn-floating" ng-click="action = 'add'"><i class="material-icons">add</i></a>
+          <a href="#!/config" class="waves-effect waves-light btn btn-floating blue" ng-click="action = 'config'"><i class="material-icons">settings</i></a>
+        </div>
+      </div>
+
+      <div ng-view></div>
+
+    <!-- Angular -->
+    <script src="./node_modules/angular/angular.min.js"></script>
+    <script src="./node_modules/angular-route/angular-route.min.js"></script>
+
+    <script src="./app/app.module.js"></script>
+    <script src="./app/app.routes.js"></script>
+
+    <!-- Helpers -->
+    <script src="./app/helpers/date-helper.js"></script>
+    <!-- filters -->
+    <script src="./app/filters/brasilian-currency-filter.js"></script>
+
+    <!-- Factories -->
+    <script src="./app/factories/guid-factory.js"></script>
+
+    <!-- Services -->
+    <script src="./app/services/config-service.js"></script>
+    <script src="./app/services/registers-service.js"></script>
+
+    <!-- Providers -->
+    <script src="./app/providers/registers-provider.js"></script>
+    <script src="./app/providers/config-provider.js"></script>
+
+    <!-- Controllers -->
+    <script src="./app/controllers/list-controller.js"></script>
+    <script src="./app/controllers/add-controller.js"></script>
+    <script src="./app/controllers/config-controller.js"></script>
+    <script src="./app/controllers/home-controller.js"></script>
+    <script src="./app/controllers/details-controller.js"></script>
+
+    <!-- Materialize -->
+    <script src="./libs/jquery-2.1.1.min.js"></script>
+    <script src="./css/materialize/js/materialize.min.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,47 @@
+<div class="row slide-animation">
+  <h3 class="center">Detalhes</h3>
+  <form class="col offset-s2 s8" name="addForm">
+    <div class="row">
+      <div class="input-field col s6">
+        <input type="text" id="title" ng-model="registry.title" class="validate">
+        <label class="active" for="title">Título</label>
+      </div>
+      <div class="input-field col s6">
+        <input type="text" id="amount" ng-model="registry.amount" class="validate">
+        <label class="active" for="amount">Valor</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12 m6 l4">
+        <label class="active" for="date">Data de vencimento</label>
+        <input type="text" id="date" ng-model="registry.expirationDate">
+      </div>
+      <div class="input-field col s12 m6 l4">
+        <input type="text" id="category" ng-model="registry.category" class="validate">
+        <label class="active" for="category">Categoria</label>
+      </div>
+      <div class="input-field col s12 m6 l4 center">
+        <input type="checkbox" id="recurrent" ng-model="registry.recurrent">
+        <label class="active" for="recurrent">Gasto Fixo</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <textarea id="description" class="materialize-textarea validate" ng-model="registry.description"></textarea>
+        <label class="active" for="description">Descrição</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col-s12">
+        <div class="right">
+          <a href="#" class="waves-effect waves-light btn red btn-floating tooltipped" ng-click="delete()">
+            <i class="material-icons">delete</i>
+          </a>
+          <a href="#" class="waves-effect waves-light btn btn-floating" ng-click="save()">
+            <i class="material-icons">save</i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
