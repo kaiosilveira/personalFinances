@@ -1,7 +1,9 @@
+var http = require('http');
 var express = require('express'),
-  app = express(),
-  port = process.env.PORT || 3000;
+  app = express();
 
-app.listen(port);
+  app.use(express.static('./public'));
 
-console.log('personal finances running on port ' + port);
+http.createServer(app).listen(process.env.PORT || 3000, function() {
+  console.log('server running');
+});
