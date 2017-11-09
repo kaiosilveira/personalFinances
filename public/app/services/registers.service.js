@@ -10,7 +10,14 @@
         registers : []
       },
 
+      list : () => {
+        return angular
+        .fromJson(sessionStorage.registersService)
+        .registers;
+      },
+
       saveState : () => {
+        console.log(service.model);
         sessionStorage.registersService = angular.toJson(service.model);
       },
 

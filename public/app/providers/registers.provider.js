@@ -2,15 +2,21 @@
 
   'use strict';
 
+  angular.module('personal-finances').factory('registersProvider', registersProvider);
+
+  registersProvider.$inject = ['$rootScope', 'registersService', 'guidFactory'];
+
   function registersProvider($rootScope, registersService, guidFactory) {
 
     var provider = {
 
       list : () => {
         $rootScope.$broadcast('restoreRegisters');
-        return registersService.model && registersService.model.registers.length ?
-          registersService.model.registers
-          : [];
+
+        if(!registersService.list() || !registersService.list().length)
+          return [];
+
+        return registersService.list();
       },
 
       add: (registry) => {
@@ -27,6 +33,7 @@
       },
 
       update: (registry) => {
+        console.log(['registry at provider', registry]);
         registersService.model.registers.filter(r => r.id == registry.id)[0] = registry;
         $rootScope.$broadcast('saveRegisters');
       },
@@ -43,8 +50,5 @@
 
     return provider;
   }
-
-  registersProvider.$inject = ['$rootScope', 'registersService', 'guidFactory'];
-  angular.module('personal-finances').factory('registersProvider', registersProvider);
 
 })();

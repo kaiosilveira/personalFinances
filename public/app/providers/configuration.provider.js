@@ -4,6 +4,7 @@
 
   function configProvider($rootScope, configService) {
 
+    var currentDate = new Date();
     var provider = {
 
       get: () => {
@@ -24,6 +25,24 @@
 
       getPeriod: () => {
         return configService.get().period || { from: 5, to: 4 };
+      },
+
+      getPeriodStartDate: () => {
+        var period = configService.get().period;
+        return new Date(
+          currentDate.getFullYear(),
+          currentDate.getDate() < period.from ? currentDate.getMonth() - 1 : currentDate.getMonth(),
+          period.from)
+          .toLocaleDateString();
+      },
+
+      getPeriodEndDate: () => {
+        var period = configService.get().period;
+        return new Date(
+          currentDate.getFullYear(),
+          currentDate.getDate() < period.from ? currentDate.getMonth() : currentDate.getMonth() + 1,
+          period.to)
+          .toLocaleDateString();
       },
 
       update: (config) => {

@@ -6,20 +6,26 @@
 
     $routeProvider
     .when('/', {
-      templateUrl: '/app/views/list.html',
-      controller: 'listController'
+      templateUrl: '/app/views/registers/list.html',
+      controller: 'registersController'
     })
     .when('/config', {
-      templateUrl: '/app/views/config.html',
-      controller: 'configController'
+      templateUrl: '/app/views/config/config.html',
+      controller: 'configController',
+      controllerAs: 'configCtrl'
     })
     .when('/add', {
-      templateUrl: 'app/views/add.html',
-      controller: 'addController'
+      templateUrl: 'app/views/registers/add.html',
+      controller: 'registersController'
     })
     .when('/details/:id', {
-      templateUrl: 'app/views/details.html',
-      controller: 'detailsController'
+      templateUrl: 'app/views/registers/details.html',
+      controller: 'registersController'
+    })
+    .when('/groups/new/', {
+      templateUrl: 'app/views/groups/add.html',
+      controller: 'groupsController',
+      controllerAs: 'groupsCtrl'
     });
 
   }
