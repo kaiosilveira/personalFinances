@@ -17,19 +17,23 @@
           }
       },
 
+      get: () => {
+        return angular.fromJson(sessionStorage.config);
+      },
+
       saveState: () => {
-        sessionStorage.configService = angular.toJson(service.model);
+        sessionStorage.config = angular.toJson(service.model);
         console.log('config saved');
       },
 
       restoreState: () => {
-        service.model = angular.fromJson(sessionStorage.configService);
+        service.model = angular.fromJson(sessionStorage.config);
         console.log('config restored');
       }
 
     };
 
-    $rootScope.$on('saveConfig', service.saveState);
+    $rootScope.$on('configUpdated', service.saveState);
     $rootScope.$on('restoreConfig', service.restoreState);
 
     return service;

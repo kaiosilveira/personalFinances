@@ -22,9 +22,13 @@
         };
       },
 
+      getPeriod: () => {
+        return configService.get().period || { from: 5, to: 4 };
+      },
+
       update: (config) => {
         configService.model = config;
-        $rootScope.$broadcast('saveConfig');
+        $rootScope.$broadcast('configUpdated');
       }
 
     };

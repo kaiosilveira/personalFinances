@@ -2,19 +2,30 @@
 
   'use strict';
 
-  function homeController($sope, configProvider) {
+  function homeController($scope, configProvider) {
 
     var self = this;
-    var config = configProvider.get();
+    var period = configProvider.getPeriod();
+    console.log(period);
     var currentDate = new Date();
 
     self.getPeriodStartDate = () => {
-      return new Date(currentDate.getFullYear(),  currentDate.getMonth() - 1, config.period.from).toLocaleDateString();
+      return new Date(
+        currentDate.getFullYear(),
+        currentDate.getDate() < period.from ? currentDate.getMonth() - 1 : currentDate.getMonth(),
+        period.from)
+        .toLocaleDateString();
     }
 
     self.getPeriodEndDate = () => {
-      return new Date(currentDate.getFullYear(),  currentDate.getMonth(), config.period.to).toLocaleDateString();
+      return new Date(
+        currentDate.getFullYear(),
+        currentDate.getDate() < period.from ? currentDate.getMonth() : currentDate.getMonth() + 1,
+        period.to)
+        .toLocaleDateString();
     }
+
+    $scope.$on('configUpdated', () => period = configProvider.getPeriod());
 
   }
 
