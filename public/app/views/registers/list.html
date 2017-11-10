@@ -16,7 +16,7 @@
         <div class="switch">
           <label>
             Apenas não pagos
-            <input type="checkbox" ng-model="showPendingOnly" ng-change="filterRegistryList()">
+            <input type="checkbox" ng-model="registersCtrl.showPendingOnly" ng-change="registersCtrl.filterRegistryList()">
             <span class="lever"></span>
           </label>
         </div>
@@ -38,10 +38,10 @@
         </thead>
         <tbody>
           <tr
-            ng-repeat="registry in filteredRegistries"
-            ng-click="showDetails(registry)"
-            ng-class="isExpired(registry) ? 'red-text' : ''">
-            <td ng-click="$event.stopPropagation();setPaid(registry)">
+            ng-repeat="registry in registersCtrl.filteredRegistries"
+            ng-click="registersCtrl.showDetails(registry)"
+            ng-class="registersCtrl.isExpired(registry) ? 'red-text' : ''">
+            <td ng-click="$event.stopPropagation();registersCtrl.setPaid(registry)">
               <input type="checkbox" ng-model="registry.paid">
               <label>{{registry.paid ? 'Pago' : 'Pendente'}}</label>
             </td>
@@ -57,9 +57,9 @@
           <tr>
             <td colspan="7" style="font-weight:bold;">
               <div class="right">
-                <span price>Total: {{getTotal() | currencybr}}</span> |
-                <span class="green-text">Pago: {{getTotalPaid()}}</span> |
-                <span class="orange-text">Restante: {{getTotalPending()}}</span>
+                <span price>Total: {{registersCtrl.getTotal() | currencybr}}</span> |
+                <span class="green-text">Pago: {{registersCtrl.getTotalPaid()}}</span> |
+                <span class="orange-text">Restante: {{registersCtrl.getTotalPending()}}</span>
               </div>
             </td>
           </tr>

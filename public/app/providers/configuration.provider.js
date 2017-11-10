@@ -24,11 +24,17 @@
       },
 
       getPeriod: () => {
-        return configService.get().period || { from: 5, to: 4 };
+        var config = configService.get();
+        return config ? config.period : { from: 5, to: 4 };
       },
 
       getPeriodStartDate: () => {
-        var period = configService.get().period;
+        var config = configService.get();
+
+        if(!config)
+          return false;
+
+        var period = config.period;
         return new Date(
           currentDate.getFullYear(),
           currentDate.getDate() < period.from ? currentDate.getMonth() - 1 : currentDate.getMonth(),

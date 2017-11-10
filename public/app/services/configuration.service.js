@@ -18,7 +18,7 @@
       },
 
       get: () => {
-        return angular.fromJson(sessionStorage.config);
+        return angular.fromJson(sessionStorage.config || service.model);
       },
 
       saveState: () => {

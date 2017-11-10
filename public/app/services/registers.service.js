@@ -2,7 +2,13 @@
 
   'use strict';
 
-  function registersService($rootScope) {
+  angular.module('personal-finances').service('registersService', registersService);
+
+  registersService.$inject = ['$rootScope', '$http', '$q'];
+
+  function registersService($rootScope, $http, $q) {
+
+    var baseUrl = '/v1/registers';
 
     var service = {
 
@@ -10,11 +16,7 @@
         registers : []
       },
 
-      list : () => {
-        return angular
-        .fromJson(sessionStorage.registersService)
-        .registers;
-      },
+      list : () => $http.get(baseUrl),
 
       saveState : () => {
         console.log(service.model);
@@ -31,9 +33,7 @@
     $rootScope.$on('restoreRegisters', service.restoreState);
 
     return service;
-  }
 
-  registersService.$inject = ['$rootScope'];
-  angular.module('personal-finances').service('registersService', registersService);
+  }
 
 })();

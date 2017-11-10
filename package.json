@@ -6,7 +6,9 @@
   "dependencies": {
     "angular": "^1.6.4",
     "angular-route": "^1.6.4",
-    "express": "^4.15.3"
+    "consign": "^0.1.6",
+    "express": "^4.15.3",
+    "mongoose": "^4.13.1"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"

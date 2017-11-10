@@ -4,19 +4,25 @@
 
   angular.module('personal-finances').factory('registersProvider', registersProvider);
 
-  registersProvider.$inject = ['$rootScope', 'registersService', 'guidFactory'];
+  registersProvider.$inject = ['$rootScope', '$q', 'registersService', 'guidFactory'];
 
-  function registersProvider($rootScope, registersService, guidFactory) {
+  function registersProvider($rootScope, $q, registersService, guidFactory) {
 
     var provider = {
 
       list : () => {
-        $rootScope.$broadcast('restoreRegisters');
 
-        if(!registersService.list() || !registersService.list().length)
-          return [];
+        var defer = $q.defer();
 
-        return registersService.list();
+        registersService
+        .list()
+        .then(
+          result => defer.resolve(result.data),
+          err => defer.reject(err)
+        );
+
+        return defer.promise;
+
       },
 
       add: (registry) => {
@@ -33,8 +39,8 @@
       },
 
       update: (registry) => {
-        console.log(['registry at provider', registry]);
-        registersService.model.registers.filter(r => r.id == registry.id)[0] = registry;
+        let index = registersService.model.registers.findIndex(r => r.id == registry.id);
+        registersService.model.registers[index] = registry;
         $rootScope.$broadcast('saveRegisters');
       },
 
