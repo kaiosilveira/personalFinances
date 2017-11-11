@@ -6,8 +6,9 @@
 
     $routeProvider
     .when('/', {
-      templateUrl: '/app/views/registers/list.html',
-      controller: 'registersController'
+      templateUrl: '/app/views/debts/list.html',
+      controller: 'debtsController',
+      controllerAs: 'debtsCtrl'
     })
     .when('/config', {
       templateUrl: '/app/views/config/config.html',
@@ -15,12 +16,14 @@
       controllerAs: 'configCtrl'
     })
     .when('/add', {
-      templateUrl: 'app/views/registers/add.html',
-      controller: 'registersController'
+      templateUrl: 'app/views/debts/add.html',
+      controller: 'debtsController',
+      controllerAs: 'debtsCtrl'
     })
     .when('/details/:id', {
-      templateUrl: 'app/views/registers/details.html',
-      controller: 'registersController'
+      templateUrl: 'app/views/debts/details.html',
+      controller: 'debtsController',
+      controllerAs: 'debtsCtrl'
     })
     .when('/groups/new/', {
       templateUrl: 'app/views/groups/add.html',

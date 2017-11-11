@@ -4,17 +4,31 @@
 
   angular.module('personal-finances').controller('configController', configController);
 
-  configController.$inject = ['$scope', '$rootScope', 'configProvider'];
+  configController.$inject = ['$scope', '$rootScope', 'configService'];
 
-  function configController($scope, $rootScope, configProvider) {
+  function configController($scope, $rootScope, configService) {
 
     var self = this;
+    self.save = save;
 
-    self.config = angular.copy(configProvider.get());
+    _init();
 
-    self.save = () => {
-      configProvider.update(angular.copy(self.config));
-      Materialize.toast('Configurações redefinidas', 2000);
+    function _init() {
+      configService.get()
+      .then(
+        config => {
+          self.config = config;
+          self.period = config.period;
+        },
+        err => console.log(err));
+    }
+
+    function save(){
+      configService.update(angular.copy(self.config))
+      .then(
+        success => Materialize.toast('Configurações redefinidas', 2000),
+        err => console.log(err)
+      );
     }
 
   }

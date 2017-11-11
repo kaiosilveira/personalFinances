@@ -16,7 +16,7 @@
         <div class="switch">
           <label>
             Apenas não pagos
-            <input type="checkbox" ng-model="registersCtrl.showPendingOnly" ng-change="registersCtrl.filterRegistryList()">
+            <input type="checkbox" ng-model="debtsCtrl.showPendingOnly" ng-change="debtsCtrl.filterDebtList()">
             <span class="lever"></span>
           </label>
         </div>
@@ -38,28 +38,28 @@
         </thead>
         <tbody>
           <tr
-            ng-repeat="registry in registersCtrl.filteredRegistries"
-            ng-click="registersCtrl.showDetails(registry)"
-            ng-class="registersCtrl.isExpired(registry) ? 'red-text' : ''">
-            <td ng-click="$event.stopPropagation();registersCtrl.setPaid(registry)">
-              <input type="checkbox" ng-model="registry.paid">
-              <label>{{registry.paid ? 'Pago' : 'Pendente'}}</label>
+            ng-repeat="debt in debtsCtrl.filteredDebts"
+            ng-click="debtsCtrl.showDetails(debt)"
+            ng-class="debtsCtrl.isExpired(debt) ? 'red-text' : ''">
+            <td ng-click="$event.stopPropagation();debtsCtrl.setPaid(debt)">
+              <input type="checkbox" ng-model="debt.paid">
+              <label>{{debt.paid ? 'Pago' : 'Pendente'}}</label>
             </td>
-            <td>{{registry.title}}</td>
-            <td>{{registry.amount | currency:"R$"}}</td>
-            <td>{{registry.expirationDate | date}}</td>
-            <td>{{registry.category}}</td>
-            <!-- td class="hide-on-small-only">{{registry.description}}</td-->
-            <td class="hide-on-small-only">{{registry.recurrent ? 'Sim' : 'Não'}}</td>
+            <td>{{debt.title}}</td>
+            <td>{{debt.amount | currency:"R$"}}</td>
+            <td>{{debt.expirationDate | date}}</td>
+            <td>{{debt.category}}</td>
+            <!-- td class="hide-on-small-only">{{debt.description}}</td-->
+            <td class="hide-on-small-only">{{debt.recurrent ? 'Sim' : 'Não'}}</td>
           </tr>
         </tbody>
         <tfoot>
           <tr>
             <td colspan="7" style="font-weight:bold;">
               <div class="right">
-                <span price>Total: {{registersCtrl.getTotal() | currencybr}}</span> |
-                <span class="green-text">Pago: {{registersCtrl.getTotalPaid()}}</span> |
-                <span class="orange-text">Restante: {{registersCtrl.getTotalPending()}}</span>
+                <span price>Total: {{debtsCtrl.getTotal() | currencybr}}</span> |
+                <span class="green-text">Pago: {{debtsCtrl.getTotalPaid()}}</span> |
+                <span class="orange-text">Restante: {{debtsCtrl.getTotalPending()}}</span>
               </div>
             </td>
           </tr>

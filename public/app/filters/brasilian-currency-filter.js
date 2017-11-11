@@ -5,6 +5,10 @@
   function brasilianCurrencyFilter() {
 
     return (value) => {
+
+      if(!value)
+        return 'R$00,00';
+
       var str = value.toString();
       return 'R$' + str.replace('.', ',');
     }

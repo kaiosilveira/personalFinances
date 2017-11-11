@@ -2,44 +2,53 @@
 
   'use strict';
 
-  function configService($rootScope) {
+  angular.module('personal-finances').service('configService', configService);
 
-    var service = {
+  configService.$inject = ['$http', '$q'];
 
-      model: {
-          period: {
-            from : 0,
-            to: 0
-          },
-          incomes: {
-            fixed: 0,
-            variable: 0
-          }
+  function configService($http, $q) {
+
+    let baseUrl = '/v1/config';
+    const DEFAULT_CONFIG = {
+      period: {
+        from: 5,
+        to: 4
       },
-
-      get: () => {
-        return angular.fromJson(sessionStorage.config || service.model);
-      },
-
-      saveState: () => {
-        sessionStorage.config = angular.toJson(service.model);
-        console.log('config saved');
-      },
-
-      restoreState: () => {
-        service.model = angular.fromJson(sessionStorage.config);
-        console.log('config restored');
+      incomes: {
+        fixed: 0,
+        variable: 0
       }
-
     };
 
-    $rootScope.$on('configUpdated', service.saveState);
-    $rootScope.$on('restoreConfig', service.restoreState);
+    var service = {
+      post: post,
+      get: get,
+      update: update
+    };
 
     return service;
-  }
 
-  configService.$inject = ['$rootScope'];
-  angular.module('personal-finances').service('configService', configService);
+    function post(config) {
+        return $http.post(baseUrl, config);
+    }
+
+    function get() {
+      var defer = $q.defer();
+
+      $http
+      .get(baseUrl)
+      .then(
+        result => defer.resolve(result.data && result.data.length ? result.data[0] : DEFAULT_CONFIG),
+        err => defer.reject(err)
+      );
+
+      return defer.promise;
+    }
+
+    function update(config) {
+      return config._id ? $http.put(baseUrl + '/' + config._id, config) : $http.post(baseUrl, config);
+    }
+
+  }
 
 })();
