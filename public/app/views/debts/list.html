@@ -11,8 +11,8 @@
   </div>
 
   <div class="row slide-animation" id="list">
-    <div class="row">
-      <div class="col s12">
+    <div class="row" style="display: flex; align-items: center;">
+      <div class="col s3">
         <div class="switch">
           <label>
             Apenas não pagos
@@ -20,6 +20,19 @@
             <span class="lever"></span>
           </label>
         </div>
+      </div>
+      <div class="col s3">
+        <div class="switch">
+          <label>
+            Apenas não pagos
+            <input type="checkbox" ng-model="debtsCtrl.showPendingOnly" ng-change="debtsCtrl.filterDebtList()">
+            <span class="lever"></span>
+          </label>
+        </div>
+      </div>
+      <div class="col s6 input-field">
+          <input type="text" id="search" ng-model="debtsCtrl.search" ng-change="debtsCtrl.searchInDebtList()">
+          <label for="search">Buscar por...</label>
       </div>
     </div>
 
@@ -45,7 +58,7 @@
               <input type="checkbox" ng-model="debt.paid">
               <label>{{debt.paid ? 'Pago' : 'Pendente'}}</label>
             </td>
-            <td>{{debt.title}}</td>
+            <td>{{debt.title}} <span ng-show="debt.isInstallment">({{debt.currentInstallment}} de {{debt.totalInstallments}})</span> </td>
             <td>{{debt.amount | currency:"R$"}}</td>
             <td>{{debt.expirationDate | date}}</td>
             <td>{{debt.category}}</td>
@@ -58,8 +71,8 @@
             <td colspan="7" style="font-weight:bold;">
               <div class="right">
                 <span price>Total: {{debtsCtrl.getTotal() | currencybr}}</span> |
-                <span class="green-text">Pago: {{debtsCtrl.getTotalPaid()}}</span> |
-                <span class="orange-text">Restante: {{debtsCtrl.getTotalPending()}}</span>
+                <span class="green-text">Pago: {{debtsCtrl.getTotalPaid() | currencybr}}</span> |
+                <span class="orange-text">Restante: {{debtsCtrl.getTotalPending() | currencybr}}</span>
               </div>
             </td>
           </tr>

@@ -28,6 +28,18 @@ var schema = mongoose.Schema({
   amount: {
     type: Number,
     required: true
+  },
+  isInstallment: {
+    type: Boolean,
+    required: false
+  },
+  currentInstallment: {
+    type: Number,
+    required: false
+  },
+  totalInstallments: {
+    type: Number,
+    required: false
   }
 });
 

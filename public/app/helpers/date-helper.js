@@ -13,6 +13,7 @@
       },
 
       previous: (date, comparison) => {
+
         let hasPreviousYear = date.getYear() < comparison.getYear();
         let hasPreviousMonth = date.getYear() >= comparison.getYear() && date.getMonth() < comparison.getMonth();
         let hasPreviousDay = date.getYear() >= comparison.getYear() && date.getMonth() >= comparison.getMonth() && date.getDate() < comparison.getDate();

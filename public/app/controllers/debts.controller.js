@@ -25,9 +25,10 @@
     self.save = save;
     self.update = update;
     self.delete = remove;
-    self.filterRegistryList = filterRegistryList;
+    self.filterDebtList = filterDebtList;
     self.showDetails = showDetails;
     self.isExpired = isExpired;
+    self.searchInDebtList = searchInDebtList;
 
     //initialization
     self._init();
@@ -51,10 +52,25 @@
         : 0;
     }
 
-    function filterRegistryList() {
+    function filterDebtList() {
       self.filteredDebts = self.showPendingOnly ?
       self.debts.filter(r => !r.paid)
         : self.debts;
+    }
+
+    function searchInDebtList() {
+      self.filteredDebts = self.debts.filter(debt => omniFilter(debt, self.search));
+
+      function omniFilter(entity, searchTerm) {
+
+        if(!searchTerm)
+          return true;
+
+        return Object
+        .keys(entity)
+        .some(key => entity.hasOwnProperty(key) && entity[key].toString().indexOf(searchTerm) >= 0);
+
+      }
     }
 
     function showDetails(debt) {
@@ -62,6 +78,7 @@
     }
 
     function isExpired(debt) {
+      return !debt.paid && new Date(debt.expirationDate) < new Date();
       let isPrevious = dateHelper.previous(dateHelper.fromFormatedString(debt.expirationDate), new Date());
       return !debt.paid && isPrevious;
     }
@@ -108,19 +125,6 @@
 
     }
 
-    function _init() {
-      debtsService
-      .list()
-      .then(
-        result => {
-          self.debts = result.data;
-          self.debt = self.debts.filter(r => r._id == $routeParams.id)[0] || {};
-          console.log(self.debt);
-          self.filteredDebts = self.debts || [];
-        },
-        err => console.log(err));
-    }
-
     function getTotal() {
       return self.filteredDebts.length ?
         self.filteredDebts
@@ -144,6 +148,18 @@
         );
       }, 300);
 
+    }
+
+    function _init() {
+      debtsService
+      .list()
+      .then(
+        result => {
+          self.debts = result.data;
+          self.debt = self.debts.filter(r => r._id == $routeParams.id)[0] || {};
+          self.filteredDebts = self.debts || [];
+        },
+        err => console.log(err));
     }
 
   }

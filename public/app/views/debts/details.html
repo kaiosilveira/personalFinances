@@ -23,6 +23,20 @@
         <input type="checkbox" id="recurrent" ng-model="debtsCtrl.debt.recurrent">
         <label class="active" for="recurrent">Gasto Fixo</label>
       </div>
+      <div class="input-field col s12 m6 l4 center">
+        <input type="checkbox" id="isInstallment" ng-model="debtsCtrl.debt.isInstallment">
+        <label for="isInstallment">Parcelado</label>
+      </div>
+    </div>
+    <div class="row" ng-show="debtsCtrl.debt.isInstallment">
+      <div class="input-field col s6">
+        <input type="text" id="currentInstallment" ng-model="debtsCtrl.debt.currentInstallment">
+        <label class="active" for="currentInstallment">Parcela atual</label>
+      </div>
+      <div class="input-field col s6">
+        <input type="text" id="totalInstallments" ng-model="debtsCtrl.debt.totalInstallments">
+        <label class="active" for="totalInstallments">Quantidade de parcelas</label>
+      </div>
     </div>
     <div class="row">
       <div class="input-field col s12">

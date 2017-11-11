@@ -9,7 +9,7 @@
       if(!value)
         return 'R$00,00';
 
-      var str = value.toString();
+      var str = value.toFixed(2);
       return 'R$' + str.replace('.', ',');
     }
   }
