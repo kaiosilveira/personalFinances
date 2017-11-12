@@ -10,6 +10,12 @@
       controller: 'debtsController',
       controllerAs: 'debtsCtrl'
     })
+    $routeProvider
+    .when('/login', {
+      templateUrl: '/app/views/login/login.html',
+      controller: 'loginController',
+      controllerAs: 'loginCtrl'
+    })
     .when('/config', {
       templateUrl: '/app/views/config/config.html',
       controller: 'configController',

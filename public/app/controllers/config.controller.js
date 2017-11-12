@@ -8,6 +8,8 @@
 
   function configController($scope, $rootScope, configService) {
 
+    $rootScope.action = 'config';
+
     var self = this;
     self.save = save;
 

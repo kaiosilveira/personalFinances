@@ -4,9 +4,11 @@
 
   angular.module('personal-finances').controller('homeController', homeController);
 
-  homeController.$inject = ['$scope', 'configService'];
+  homeController.$inject = ['$rootScope', '$scope', 'configService'];
 
-  function homeController($scope, configService) {
+  function homeController($rootScope, $scope, configService) {
+
+    $rootScope.action = 'home';
 
     var self = this;
     self.config = {};

@@ -4,9 +4,11 @@
 
   angular.module('personal-finances').controller('debtsController', debtsController);
 
-  debtsController.$inject = ['$scope', '$routeParams', '$location', 'debtsService', 'dateHelper'];
+  debtsController.$inject = ['$rootScope', '$scope', '$routeParams', '$location', 'debtsService', 'dateHelper'];
 
-  function debtsController($scope, $routeParams, $location, debtsService, dateHelper) {
+  function debtsController($rootScope, $scope, $routeParams, $location, debtsService, dateHelper) {
+
+    $rootScope.action = 'list';
 
     var self = this;
 
