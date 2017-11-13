@@ -2,9 +2,7 @@
 
   'use strict';
 
-  angular
-  .module('personal-finances')
-  .controller('loginController', loginController);
+  angular.module('personal-finances').controller('loginController', loginController);
 
   loginController.$inject = ['$rootScope', '$location', '$http'];
 

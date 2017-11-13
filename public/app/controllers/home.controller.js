@@ -31,19 +31,11 @@
     }
 
     function getPeriodStartDate() {
-      return new Date(
-        currentDate.getFullYear(),
-        currentDate.getDate() < self.period.from ? currentDate.getMonth() - 1 : currentDate.getMonth(),
-        self.period.from)
-        .toLocaleDateString();
+      return this.config.period ? this.config.period.getStartDate().toLocaleDateString() : null;
     }
 
     function getPeriodEndDate() {
-      return new Date(
-        currentDate.getFullYear(),
-        currentDate.getDate() < self.period.from ? currentDate.getMonth() : currentDate.getMonth() + 1,
-        self.period.to)
-        .toLocaleDateString();
+      return this.config.period ? this.config.period.getEndDate().toLocaleDateString() : null;
     }
 
   }

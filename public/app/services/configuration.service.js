@@ -12,7 +12,25 @@
     const DEFAULT_CONFIG = {
       period: {
         from: 5,
-        to: 4
+        to: 4,
+        getStartDate: function() {
+          var currentDate = new Date();
+          return new Date(
+            currentDate.getFullYear(),
+            currentDate.getDate() < this.from ? currentDate.getMonth() - 1 : currentDate.getMonth(),
+            this.from);
+        },
+        getEndDate: function() {
+          var currentDate = new Date();
+          return new Date(
+            currentDate.getFullYear(),
+            currentDate.getDate() < this.from ? currentDate.getMonth() : currentDate.getMonth() + 1,
+            this.to);
+        },
+        getName: function() {
+          let startDate = this.getStartDate();
+          return [startDate.getFullYear(), startDate.getMonth() + 1].join('');
+        }
       },
       incomes: {
         fixed: 0,
@@ -38,7 +56,19 @@
       $http
       .get(baseUrl)
       .then(
-        result => defer.resolve(result.data && result.data.length ? result.data[0] : DEFAULT_CONFIG),
+        result => {
+
+          var config = {};
+          if(result.data && result.data.length) {
+            config = result.data[0];
+            config.period.getStartDate = DEFAULT_CONFIG.period.getStartDate;
+            config.period.getEndDate = DEFAULT_CONFIG.period.getEndDate;
+            config.period.getName = DEFAULT_CONFIG.period.getName;
+          } else
+            config = DEFAULT_CONFIG;
+
+          defer.resolve(config);
+        },
         err => defer.reject(err)
       );
 

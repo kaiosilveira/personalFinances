@@ -40,6 +40,10 @@ var schema = mongoose.Schema({
   totalInstallments: {
     type: Number,
     required: false
+  },
+  period: {
+    type: String,
+    required: false
   }
 });
 

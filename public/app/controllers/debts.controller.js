@@ -4,9 +4,9 @@
 
   angular.module('personal-finances').controller('debtsController', debtsController);
 
-  debtsController.$inject = ['$rootScope', '$scope', '$routeParams', '$location', 'debtsService', 'dateHelper'];
+  debtsController.$inject = ['$rootScope', '$scope', '$routeParams', '$location', 'debtsService', 'dateHelper', 'configService'];
 
-  function debtsController($rootScope, $scope, $routeParams, $location, debtsService, dateHelper) {
+  function debtsController($rootScope, $scope, $routeParams, $location, debtsService, dateHelper, configService) {
 
     $rootScope.action = 'list';
 
@@ -79,8 +79,12 @@
 
     function save() {
 
-      debtsService
-      .post(self.debt)
+      configService
+      .get()
+      .then(config => {
+        self.debt.period = config.period.getName();
+        return debtsService.post(self.debt);
+      })
       .then(
         success => {
           Materialize.toast('Registro adicionado!', 2000);
@@ -91,7 +95,6 @@
           self.debt = {};
         }
       );
-
     }
 
     function update() {
