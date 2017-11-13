@@ -7,6 +7,10 @@ module.exports = function(app) {
     .get(debtsController.list)
     .post(debtsController.create);
 
+    app
+      .route('/v1/debts/period/:period')
+      .get(debtsController.listByPeriod);
+
   app
     .route('/v1/debts/:id')
     .put(debtsController.update)

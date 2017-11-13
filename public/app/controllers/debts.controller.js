@@ -4,9 +4,9 @@
 
   angular.module('personal-finances').controller('debtsController', debtsController);
 
-  debtsController.$inject = ['$rootScope', '$scope', '$routeParams', '$location', 'debtsService', 'dateHelper', 'configService'];
+  debtsController.$inject = ['$rootScope', '$scope', '$routeParams', '$location', 'debtsService', 'dateHelper', 'periodHelper', 'configService'];
 
-  function debtsController($rootScope, $scope, $routeParams, $location, debtsService, dateHelper, configService) {
+  function debtsController($rootScope, $scope, $routeParams, $location, debtsService, dateHelper, periodHelper, configService) {
 
     $rootScope.action = 'list';
 
@@ -30,11 +30,46 @@
     self.filterDebtList = filterDebtList;
     self.showDetails = showDetails;
     self.isExpired = isExpired;
+    self.getPreviousPeriod = getPreviousPeriod;
+    self.getNextPeriod = getNextPeriod;
 
     //initialization
     self._init();
 
     //functions
+
+    function getPreviousPeriod() {
+
+      self.period = periodHelper.getPrevious(self.period, self.config);
+
+      debtsService.listByPeriod(self.period.getName())
+      .then(
+        result => {
+          self.debts = result.data;
+          self.debt = self.debts.filter(r => r._id == $routeParams.id)[0] || {};
+          self.filteredDebts = self.debts || [];
+        },
+        err => console.log(err)
+      );
+
+    }
+
+    function getNextPeriod() {
+
+      self.period = periodHelper.getNext(self.period, self.config);
+
+      debtsService.listByPeriod(self.period.getName())
+      .then(
+        result => {
+          self.debts = result.data;
+          self.debt = self.debts.filter(r => r._id == $routeParams.id)[0] || {};
+          self.filteredDebts = self.debts || [];
+        },
+        err => console.log(err)
+      );
+
+    }
+
     function getTotalPaid() {
       return self.filteredDebts.length ?
           self.filteredDebts
@@ -79,12 +114,10 @@
 
     function save() {
 
-      configService
-      .get()
-      .then(config => {
-        self.debt.period = config.period.getName();
-        return debtsService.post(self.debt);
-      })
+      self.debt.period = self.period.getName();
+
+      debtsService
+      .post(self.debt)
       .then(
         success => {
           Materialize.toast('Registro adicionado!', 2000);
@@ -148,8 +181,14 @@
     }
 
     function _init() {
-      debtsService
-      .list()
+
+      configService
+      .get()
+      .then(config => {
+        self.config = config;
+        self.period = periodHelper.buildPeriod(config);
+        return debtsService.listByPeriod(self.period.getName());
+      })
       .then(
         result => {
           self.debts = result.data;
@@ -157,6 +196,7 @@
           self.filteredDebts = self.debts || [];
         },
         err => console.log(err));
+
     }
 
     //auxiliary functions

@@ -13,6 +13,17 @@ debtsController.list = function(req, res) {
 
 };
 
+debtsController.listByPeriod = function(req, res) {
+
+  model
+  .find({ "period": req.params.period })
+  .then(
+    data => res.json(data),
+    err => res.status(500).json(err)
+  );
+
+}
+
 debtsController.create = function(req, res) {
 
   model

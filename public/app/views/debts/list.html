@@ -11,6 +11,15 @@
   </div>
 
   <div class="row slide-animation" id="list">
+    <div class="row">
+      <div class="col offset-s4 s4">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <a href="javascript:void(0)" style="color: black; text-decoration: none;" ng-click="debtsCtrl.getPreviousPeriod()"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+          <h5>Periodo: {{debtsCtrl.period.getName()}}</h5>
+          <a href="javascript:void(0)" style="color: black; text-decoration: none;" ng-click="debtsCtrl.getNextPeriod()"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </div>
     <div class="row" style="display: flex; align-items: center;">
       <div class="col s3">
         <div class="switch">

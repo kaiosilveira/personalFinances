@@ -13,6 +13,7 @@
     let service = {
       post: post,
       list: list,
+      listByPeriod: listByPeriod,
       get: get,
       update: update,
       delete: remove
@@ -26,6 +27,10 @@
 
     function list() {
       return $http.get(baseUrl)
+    }
+
+    function listByPeriod(period) {
+      return $http.get(baseUrl + '/period/' + period);
     }
 
     function get(id) {
