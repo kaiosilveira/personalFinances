@@ -64,10 +64,10 @@
 
     }
 
-    helper.getPeriodNameByDate = function(date, period) {
-
-      if(date.getDate() >= period.from.getDate() && date.getDate() <= period.from.getDate)
-        return period.getName();
+    helper.getPeriodNameByDate = function(date, config) {
+      //must configure date better
+      let endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+      return this.buildPeriod(config, date, endDate);
 
     }
 

@@ -187,6 +187,7 @@
       .then(config => {
         self.config = config;
         self.period = periodHelper.buildPeriod(config);
+        console.log(periodHelper.getPeriodNameByDate(new Date(2017, 2, 17), config));
         return debtsService.listByPeriod(self.period.getName());
       })
       .then(
