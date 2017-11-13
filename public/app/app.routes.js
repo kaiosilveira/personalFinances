@@ -35,6 +35,9 @@
       templateUrl: 'app/views/groups/add.html',
       controller: 'groupsController',
       controllerAs: 'groupsCtrl'
+    })
+    .otherwise({
+      templateUrl: 'app/views/404.html'
     });
 
   }
