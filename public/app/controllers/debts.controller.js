@@ -30,7 +30,6 @@
     self.filterDebtList = filterDebtList;
     self.showDetails = showDetails;
     self.isExpired = isExpired;
-    self.searchInDebtList = searchInDebtList;
 
     //initialization
     self._init();
@@ -63,21 +62,9 @@
 
       if(self.showInstallments)
         self.filteredDebts = self.filteredDebts.filter(debt => debt.isInstallment);
-    }
 
-    function searchInDebtList() {
-      self.filteredDebts = self.debts.filter(debt => omniFilter(debt, self.search));
-
-      function omniFilter(entity, searchTerm) {
-
-        if(!searchTerm)
-          return true;
-
-        return Object
-        .keys(entity)
-        .some(key => entity.hasOwnProperty(key) && entity[key].toString().indexOf(searchTerm) >= 0);
-
-      }
+      if(self.search)
+        self.filteredDebts = self.filteredDebts.filter(debt => omniFilter(debt, self.search));
     }
 
     function showDetails(debt) {
@@ -167,6 +154,18 @@
           self.filteredDebts = self.debts || [];
         },
         err => console.log(err));
+    }
+
+    //auxiliary functions
+    function omniFilter(entity, searchTerm) {
+
+      if(!searchTerm)
+        return true;
+
+      return Object
+      .keys(entity)
+      .some(key => entity.hasOwnProperty(key) && entity[key].toString().indexOf(searchTerm) >= 0);
+
     }
 
   }
