@@ -55,9 +55,14 @@
     }
 
     function filterDebtList() {
-      self.filteredDebts = self.showPendingOnly ?
-      self.debts.filter(r => !r.paid)
-        : self.debts;
+
+      self.filteredDebts = self.debts;
+
+      if(self.showPendingOnly)
+        self.filteredDebts = self.debts.filter(debt => !debt.paid);
+
+      if(self.showInstallments)
+        self.filteredDebts = self.filteredDebts.filter(debt => debt.isInstallment);
     }
 
     function searchInDebtList() {
